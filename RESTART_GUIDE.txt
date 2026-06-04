@@ -1,0 +1,133 @@
+🔄 RESTART GUIDE - Weather API Not Reflecting in Frontend
+================================================================
+
+ISSUE: Backend weather API is working (test passed) but frontend shows wrong temperature
+
+CAUSE: Backend server needs restart to use the new 100% Live API weather agents
+
+================================================================
+✅ SOLUTION - Follow These Steps:
+================================================================
+
+STEP 1: Stop Backend Server
+----------------------------
+1. Find the terminal/cmd window running "python main.py"
+2. Press Ctrl+C to stop it
+3. Wait until it fully stops
+
+STEP 2: Stop Frontend Server
+-----------------------------
+1. Find the terminal/cmd window running "npm start"
+2. Press Ctrl+C to stop it
+3. Type "Y" when asked to terminate batch job
+4. Wait until it fully stops
+
+STEP 3: Restart Backend (IMPORTANT: Do this FIRST)
+---------------------------------------------------
+1. Open NEW terminal/cmd window
+2. Navigate to backend folder:
+   cd c:\Users\sarth\OneDrive\Desktop\2nd_year_1st_sem\farmaifinalprojectpatent\backend
+
+3. Start backend:
+   python main.py
+
+4. Wait for this message:
+   ✅ Weather Collector (100% Live API) initialized with OpenWeather API
+   🌍 Using 100% live weather data - No simulations
+   ✅ Weather Forecast Agent (100% Live API) initialized with OpenWeather API
+   🌍 Using 100% live forecast data - No simulations
+
+5. Keep this terminal open!
+
+STEP 4: Restart Frontend
+-------------------------
+1. Open ANOTHER terminal/cmd window
+2. Navigate to frontend folder:
+   cd c:\Users\sarth\OneDrive\Desktop\2nd_year_1st_sem\farmaifinalprojectpatent\frontend
+
+3. Start frontend:
+   npm start
+
+4. Browser should open automatically at http://localhost:3000
+
+STEP 5: Clear Browser Cache (IMPORTANT!)
+-----------------------------------------
+1. In browser, press Ctrl+Shift+R (hard refresh)
+   OR
+2. Press F12 → Right-click refresh button → "Empty Cache and Hard Reload"
+
+STEP 6: Test Weather
+---------------------
+1. Login with: Farmer ID: FARM001, Password: password123
+2. Go to Weather section
+3. You should see:
+   - Green badge: "🌐 Real-time OpenWeather API"
+   - Correct temperature for your city
+   - GPS coordinates shown
+   - Real feels-like temperature
+
+================================================================
+🚀 QUICK RESTART (Alternative Method)
+================================================================
+
+Double-click: RESTART_SYSTEM.bat
+
+This will automatically:
+✅ Stop all running servers
+✅ Start backend (wait 5 seconds)
+✅ Start frontend
+✅ Open both in separate windows
+
+================================================================
+🔍 VERIFY IT'S WORKING
+================================================================
+
+Backend Console should show:
+✅ Weather Collector (100% Live API) initialized with OpenWeather API
+✅ Market Forecast Agent (100% Live API) initialized
+🔑 data.gov.in API configured - Using 100% live data
+📊 No base prices - All data fetched from government API
+
+Frontend should show:
+✅ Green "🌐 Real-time OpenWeather API" badge
+✅ Correct temperature matching your city
+✅ GPS coordinates: XX.XX°N, XX.XX°E
+✅ Feels-like temperature displayed
+
+================================================================
+❌ TROUBLESHOOTING
+================================================================
+
+IF STILL SHOWING WRONG TEMPERATURE:
+
+1. Check backend console for errors
+2. Try different city (Mumbai, Delhi, Bangalore)
+3. Check if OpenWeather API key is valid:
+   - Open: backend/api_config.json
+   - Verify openweather_api_key is present
+   - Key should start with: b6176ff146580e45...
+
+4. Test backend directly:
+   Open browser: http://localhost:8000/get_weather?location=Delhi
+   Should return JSON with real temperature
+
+5. Clear ALL browser cache:
+   Settings → Privacy → Clear browsing data → Cached images and files
+
+================================================================
+📞 QUICK TEST COMMANDS
+================================================================
+
+Test Backend Weather API:
+cd backend
+python test_weather_live_api.py
+
+Should show:
+✅ Temperature: XX.X°C
+✅ Data Source: OpenWeather API (Real-time)
+✅ NO simulated data used
+
+================================================================
+
+Last Updated: February 22, 2026
+System: 100% Live API (No base prices, No simulations)

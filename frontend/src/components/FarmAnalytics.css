@@ -1,0 +1,162 @@
+.analytics-container {
+  padding: 1.5rem;
+  animation: fadeIn 0.5s ease-out;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.health-banner {
+  border-radius: 16px;
+  padding: 2rem;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.health-banner::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%);
+  transform: rotate(30deg);
+  pointer-events: none;
+}
+
+.health-status-optimal {
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+}
+
+.health-status-average {
+  background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+}
+
+.health-status-poor {
+  background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+}
+
+.health-score h2 {
+  font-size: 3.5rem;
+  margin: 0;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.health-score p {
+  margin: 0.5rem 0 0 0;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.health-factors {
+  text-align: right;
+}
+
+.health-factors ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.health-factors li {
+  margin-bottom: 0.3rem;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.glass-card h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  color: #1f2937;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 2px solid #f3f4f6;
+  padding-bottom: 0.5rem;
+}
+
+.metric-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.metric-subtext {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin: 0.2rem 0 0 0;
+}
+
+.anomaly-alert {
+  background: #fef2f2;
+  border-left: 4px solid #ef4444;
+  padding: 0.8rem;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.anomaly-alert p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #991b1b;
+}
+
+.cost-saving-item {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  padding: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.cost-saving-item strong {
+  color: #065f46;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.cost-saving-item p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #047857;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

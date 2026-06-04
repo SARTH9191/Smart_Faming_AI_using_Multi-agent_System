@@ -1,0 +1,20 @@
+{
+  "Soil health EN": {
+    "llm_used": true,
+    "language": "en",
+    "detected_language": "en",
+    "response": "Farmer, based on the latest sensor readings, your soil health appears to be in a stable condition. The soil pH is at 6.257004316087692, which is slightly acidic but within the optimal range for most crops. The nitrogen (N), phosphorus (P), and potassium (K) levels are also within acceptable limits. However, I would recommend maintaining a consistent fertilization schedule to ensure optimal nutrient availability for your crops."
+  },
+  "Off-topic block": {
+    "llm_used": true,
+    "language": "en",
+    "detected_language": "en",
+    "response": "Farmer, I'm afraid I'm not allowed to tell jokes unrelated to farming. However, I can suggest a farming-related topic for a joke. How about a joke about a farmer who went to a doctor and said, \"Doc, I've got a cow with a bad case of...?\""
+  },
+  "Hindi question": {
+    "llm_used": true,
+    "language": "hi",
+    "detected_language": "hi",
+    "response": "Farmer, आपकी मिट्टी की नमी 35.10% है। यह एक सामान्य स्तर है, लेकिन मैं आपको सलाह दूंगा कि जल्द ही पानी देने की आवश्यकता हो सकती है, खासकर यदि यह गर्मी के मौसम में है।"
+  }
+}

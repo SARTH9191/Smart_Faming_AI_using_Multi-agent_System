@@ -1,0 +1,130 @@
+{
+  "crops": [
+    {
+      "crop_id": "CROP001",
+      "name": "wheat",
+      "scientific_name": "Triticum aestivum",
+      "optimal_conditions": {
+        "temperature": "15-25°C",
+        "soil_ph": "6.0-7.5",
+        "soil_moisture": "40-60%",
+        "npk_requirement": {
+          "nitrogen": 120,
+          "phosphorus": 60,
+          "potassium": 40
+        }
+      },
+      "growth_duration_days": 120,
+      "common_diseases": ["rust", "blight", "smut"],
+      "base_yield_tons_per_hectare": 4.5
+    },
+    {
+      "crop_id": "CROP002",
+      "name": "rice",
+      "scientific_name": "Oryza sativa",
+      "optimal_conditions": {
+        "temperature": "20-35°C",
+        "soil_ph": "5.5-7.0",
+        "soil_moisture": "60-80%",
+        "npk_requirement": {
+          "nitrogen": 150,
+          "phosphorus": 75,
+          "potassium": 75
+        }
+      },
+      "growth_duration_days": 150,
+      "common_diseases": ["blast", "bacterial_blight", "sheath_blight"],
+      "base_yield_tons_per_hectare": 5.0
+    },
+    {
+      "crop_id": "CROP003",
+      "name": "corn",
+      "scientific_name": "Zea mays",
+      "optimal_conditions": {
+        "temperature": "18-32°C",
+        "soil_ph": "5.8-7.0",
+        "soil_moisture": "45-65%",
+        "npk_requirement": {
+          "nitrogen": 180,
+          "phosphorus": 80,
+          "potassium": 60
+        }
+      },
+      "growth_duration_days": 100,
+      "common_diseases": ["corn_borer", "rust", "smut"],
+      "base_yield_tons_per_hectare": 6.0
+    },
+    {
+      "crop_id": "CROP004",
+      "name": "tomato",
+      "scientific_name": "Solanum lycopersicum",
+      "optimal_conditions": {
+        "temperature": "20-30°C",
+        "soil_ph": "6.0-6.8",
+        "soil_moisture": "50-70%",
+        "npk_requirement": {
+          "nitrogen": 100,
+          "phosphorus": 50,
+          "potassium": 150
+        }
+      },
+      "growth_duration_days": 80,
+      "common_diseases": ["late_blight", "early_blight", "wilt"],
+      "base_yield_tons_per_hectare": 35.0
+    }
+  ],
+  "government_schemes": [
+    {
+      "scheme_id": "SCH001",
+      "name": "PM-KISAN",
+      "full_name": "Pradhan Mantri Kisan Samman Nidhi",
+      "benefit": "₹6,000 per year",
+      "eligibility": "All farmers with cultivable land",
+      "application_url": "https://pmkisan.gov.in"
+    },
+    {
+      "scheme_id": "SCH002",
+      "name": "PMFBY",
+      "full_name": "Pradhan Mantri Fasal Bima Yojana",
+      "benefit": "Crop insurance coverage",
+      "eligibility": "All farmers",
+      "application_url": "https://pmfby.gov.in"
+    },
+    {
+      "scheme_id": "SCH003",
+      "name": "KCC",
+      "full_name": "Kisan Credit Card",
+      "benefit": "Low-interest farm loans",
+      "eligibility": "Farmers, sharecroppers",
+      "application_url": "Contact your bank"
+    }
+  ],
+  "market_data": {
+    "mandis": [
+      {
+        "mandi_id": "MANDI001",
+        "name": "Azadpur Mandi",
+        "location": "Delhi",
+        "type": "wholesale",
+        "crops": ["wheat", "rice", "vegetables"]
+      },
+      {
+        "mandi_id": "MANDI002",
+        "name": "Vashi APMC",
+        "location": "Mumbai",
+        "type": "wholesale",
+        "crops": ["vegetables", "fruits"]
+      }
+    ],
+    "base_prices_inr_per_quintal": {
+      "wheat": 2050,
+      "rice": 2200,
+      "corn": 1800,
+      "cotton": 5500,
+      "sugarcane": 285,
+      "potato": 1200,
+      "onion": 1500,
+      "tomato": 1800
+    }
+  }
+}

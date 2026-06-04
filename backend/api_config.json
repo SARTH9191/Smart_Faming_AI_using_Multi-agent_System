@@ -1,0 +1,10 @@
+{
+  "data_gov_api_key": "YOUR_DATA_GOV_API_KEY_HERE",
+  "data_gov_base_url": "https://api.data.gov.in/resource",
+  "market_data_endpoint": "market-prices",
+  "openweather_api_key": "YOUR_OPENWEATHER_API_KEY_HERE",
+  "openweather_base_url": "https://api.openweathermap.org/data/2.5",
+  "grok_api_key": "YOUR_GROK_API_KEY_HERE",
+  "groq_api_key": "YOUR_GROQ_API_KEY_HERE",
+  "nasa_api_key": "YOUR_NASA_API_KEY_HERE"
+}
