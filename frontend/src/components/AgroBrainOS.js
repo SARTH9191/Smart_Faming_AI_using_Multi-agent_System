@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
 import './AgroBrainOS.css';
 
@@ -14,40 +14,38 @@ function AgroBrainOS({ apiUrl, farmId }) {
   // Copilot
   const [chatMessage, setChatMessage] = useState('');
   const [chatHistory, setChatHistory] = useState([]);
-  const [chatLoading, setChatLoading] = useState(false);
-  const chatEndRef = useRef(null);
-
-  // Fetch crops from database
-  useEffect(() => {
-    const fetchCrops = async () => {
-      try {
-        const res = await axios.get(`${apiUrl}/crops?farm_id=${farmId}`);
-        const crops = res.data.crops || [];
-        setAvailableCrops(crops.map(c => c.crop_type));
-        if (crops.length > 0 && !selectedCrop) {
-          setSelectedCrop(crops[0].crop_type);
-        }
-      } catch (e) {
-        console.error('Failed to fetch crops:', e);
+  const fetchCrops = useCallback(async () => {
+    try {
+      const res = await axios.get(`${apiUrl}/crops?farm_id=${farmId}`);
+      const crops = res.data.crops || [];
+      setAvailableCrops(crops.map(c => c.crop_type));
+      if (crops.length > 0 && !selectedCrop) {
+        setSelectedCrop(crops[0].crop_type);
       }
-    };
+    } catch (e) {
+      console.error('Failed to fetch crops:', e);
+    }
+  }, [apiUrl, farmId, selectedCrop]);
+
+  useEffect(() => {
     fetchCrops();
-  }, [farmId, apiUrl]);
+  }, [fetchCrops]);
+
+  const fetchProfile = useCallback(async () => {
+    try {
+      const res = await axios.get(`${apiUrl}/profile?farm_id=${farmId}`);
+      const location = res?.data?.location || 'Pune';
+      setProfileLocation(location);
+    } catch (e) {
+      setProfileLocation('Pune');
+    }
+  }, [apiUrl, farmId]);
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const res = await axios.get(`${apiUrl}/profile?farm_id=${farmId}`);
-        const location = res?.data?.location || 'Pune';
-        setProfileLocation(location);
-      } catch (e) {
-        setProfileLocation('Pune');
-      }
-    };
     fetchProfile();
-  }, [farmId, apiUrl]);
+  }, [fetchProfile]);
 
-  const fetchOSData = async (cropType = null) => {
+  const fetchOSData = useCallback(async (cropType = null) => {
     try {
       setLoading(true);
       setError(null);
@@ -158,7 +156,9 @@ function AgroBrainOS({ apiUrl, farmId }) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [apiUrl, farmId, selectedCrop, profileLocation, availableCrops]);
+
+  useEffect(() => { fetchOSData(selectedCrop); }, [fetchOSData, selectedCrop]);
 
   useEffect(() => { fetchOSData(selectedCrop); }, [apiUrl, farmId, selectedCrop, availableCrops, profileLocation]);
 

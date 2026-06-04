@@ -540,7 +540,7 @@ function AdminPanel({ onLogout }) {
   const [reviewNotes, setReviewNotes] = useState({});
   const [search, setSearch] = useState('');
 
-  const headers = { 'X-Admin-Token': token };
+  const headers = useMemo(() => ({ 'X-Admin-Token': token }), [token]);
   const showToast = msg => { setToast(msg); setTimeout(() => setToast(''), 3500); };
 
   const fetchQueue = useCallback(async () => {

@@ -1,9 +1,7 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import axios from 'axios';
-import { useLanguage } from '../context/LanguageContext';
 
 const MarketplaceView = () => {
-  const { t } = useLanguage();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -15,11 +13,7 @@ const MarketplaceView = () => {
 
   const API_URL = 'http://localhost:8000/api/marketplace';
 
-  useEffect(() => {
-    fetchMarketData();
-  }, []);
-
-  const fetchMarketData = async (selectedState = '') => {
+  const fetchMarketData = useCallback(async (selectedState = '') => {
     try {
       setLoading(true);
       setError(null);
@@ -38,7 +32,11 @@ const MarketplaceView = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchMarketData();
+  }, [fetchMarketData]);
 
   // Extract unique states and crops for dropdowns
   const uniqueStates = useMemo(() => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 function WeatherView({ apiUrl }) {
@@ -10,11 +10,7 @@ function WeatherView({ apiUrl }) {
   const [location, setLocation] = useState('Pune');
   const [inputValue, setInputValue] = useState('Pune');
 
-  useEffect(() => {
-    fetchWeatherData();
-  }, [location]);
-
-  const fetchWeatherData = async () => {
+  const fetchWeatherData = useCallback(async () => {
     try {
       setLoading(true);
       setAdvisory(null);
@@ -41,7 +37,11 @@ function WeatherView({ apiUrl }) {
       alert('Error fetching weather. Please check the location name and try again.');
       setLoading(false);
     }
-  };
+  }, [apiUrl, location]);
+
+  useEffect(() => {
+    fetchWeatherData();
+  }, [fetchWeatherData]);
 
   const fetchAdvisory = async (loc) => {
     setAdvisoryLoading(true);

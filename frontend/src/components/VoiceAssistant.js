@@ -287,8 +287,6 @@ function VoiceAssistant({ apiUrl, farmer }) {
           'service-not-allowed': 'Speech recognition service not allowed.',
         };
         
-        const userMessage = errorMessages[event.error] || 'Voice recognition failed. Please type your command below.';
-        
         setIsListening(false);
         // Show text input modal as fallback instead of just showing error
         setTextInput('');

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 function MarketView({ apiUrl }) {
@@ -6,11 +6,7 @@ function MarketView({ apiUrl }) {
   const [loading, setLoading] = useState(true);
   const [crop, setCrop] = useState('wheat');
 
-  useEffect(() => {
-    fetchMarketData();
-  }, [crop]);
-
-  const fetchMarketData = async () => {
+  const fetchMarketData = useCallback(async () => {
     try {
       setLoading(true);
       const response = await axios.get(`${apiUrl}/get_market_forecast?crop=${crop}`);
@@ -20,7 +16,11 @@ function MarketView({ apiUrl }) {
       console.error('Error fetching market data:', error);
       setLoading(false);
     }
-  };
+  }, [apiUrl, crop]);
+
+  useEffect(() => {
+    fetchMarketData();
+  }, [fetchMarketData]);
 
   if (loading) {
     return <div className="loading"><div className="spinner"></div></div>;

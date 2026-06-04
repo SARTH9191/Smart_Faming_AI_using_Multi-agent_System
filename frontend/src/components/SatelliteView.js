@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -18,16 +18,7 @@ function SatelliteView({ farmId, apiUrl }) {
     'Ahmednagar': { lat: 19.0948, lng: 74.7480, area: '15 hectares' }
   };
 
-  useEffect(() => {
-    fetchSatelliteData();
-    
-    // Refresh every 5 minutes (NASA data doesn't change frequently)
-    const interval = setInterval(fetchSatelliteData, 300000);
-    
-    return () => clearInterval(interval);
-  }, [farmId]);
-
-  const fetchSatelliteData = async (lat = null, lng = null) => {
+  const fetchSatelliteData = useCallback(async (lat = null, lng = null) => {
     try {
       let url = `${apiUrl}/drone_satellite_analysis?farm_id=${farmId}`;
       if (lat && lng) {
@@ -41,7 +32,16 @@ function SatelliteView({ farmId, apiUrl }) {
       console.error('Error fetching satellite data:', error);
       setLoading(false);
     }
-  };
+  }, [apiUrl, farmId]);
+
+  useEffect(() => {
+    fetchSatelliteData();
+    
+    // Refresh every 5 minutes (NASA data doesn't change frequently)
+    const interval = setInterval(fetchSatelliteData, 300000);
+    
+    return () => clearInterval(interval);
+  }, [fetchSatelliteData]);
 
   const handlePresetLocation = (location) => {
     const coords = presetLocations[location];

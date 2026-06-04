@@ -542,13 +542,7 @@ function CropsManager({ farmId, apiUrl }) {
     longitude: ''
   });
 
-  useEffect(() => {
-    fetchCrops();
-    const interval = setInterval(fetchCrops, 30000);
-    return () => clearInterval(interval);
-  }, [filterStatus, effectiveFarmId]);
-
-  const fetchCrops = async () => {
+  const fetchCrops = useCallback(async () => {
     try {
       const timestamp = new Date().getTime();
       const statusParam = filterStatus !== 'all' ? `&status=${filterStatus}` : '';
@@ -560,7 +554,13 @@ function CropsManager({ farmId, apiUrl }) {
     } catch (error) {
       console.error('Error fetching crops:', error);
     }
-  };
+  }, [effectiveApiUrl, effectiveFarmId, filterStatus]);
+
+  useEffect(() => {
+    fetchCrops();
+    const interval = setInterval(fetchCrops, 30000);
+    return () => clearInterval(interval);
+  }, [fetchCrops]);
 
   const addCrop = async (e) => {
     e.preventDefault();

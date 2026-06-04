@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 function Dashboard({ farmId, apiUrl, onNavigate }) {
@@ -10,15 +10,7 @@ function Dashboard({ farmId, apiUrl, onNavigate }) {
   const [isRunningAgents, setIsRunningAgents] = useState(false);
   const [showDevTools, setShowDevTools]     = useState(false);
 
-  useEffect(() => {
-    fetchDashboardData();
-    fetchRealtimeRecommendations();
-    const d = setInterval(fetchDashboardData, 30000);
-    const r = setInterval(fetchRealtimeRecommendations, 10000);
-    return () => { clearInterval(d); clearInterval(r); };
-  }, [farmId, apiUrl]);
-
-  const fetchDashboardData = async () => {
+  const fetchDashboardData = useCallback(async () => {
     try {
       const res = await axios.get(`${apiUrl}/dashboard?farm_id=${farmId}`);
       setDashboardData(res.data);
@@ -27,15 +19,23 @@ function Dashboard({ farmId, apiUrl, onNavigate }) {
       }
     } catch (e) { /* silent */ }
     finally { setLoading(false); }
-  };
+  }, [apiUrl, farmId]);
 
-  const fetchRealtimeRecommendations = async () => {
+  const fetchRealtimeRecommendations = useCallback(async () => {
     try {
       const res = await axios.get(`${apiUrl}/realtime_recommendations?farm_id=${farmId}`);
       setRealtimeRecs(res.data.recommendations || []);
       setLastUpdate(new Date());
     } catch (e) { /* silent */ }
-  };
+  }, [apiUrl, farmId]);
+
+  useEffect(() => {
+    fetchDashboardData();
+    fetchRealtimeRecommendations();
+    const d = setInterval(fetchDashboardData, 30000);
+    const r = setInterval(fetchRealtimeRecommendations, 10000);
+    return () => { clearInterval(d); clearInterval(r); };
+  }, [fetchDashboardData, fetchRealtimeRecommendations]);
 
   const triggerScenario = async (scenario) => {
     try {

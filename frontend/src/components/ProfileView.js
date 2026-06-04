@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 function ProfileView({ farmer, apiUrl }) {
@@ -8,7 +8,6 @@ function ProfileView({ farmer, apiUrl }) {
   const [satellite, setSatellite] = useState(null);
   const [cropsData, setCropsData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [errors, setErrors] = useState({});
   const [showCropForm, setShowCropForm] = useState(false);
   const [showProfileForm, setShowProfileForm] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -29,11 +28,7 @@ function ProfileView({ farmer, apiUrl }) {
 
   const farmId = farmer?.farmerId || farmer?.farmer_id || 'FARM001';
 
-  useEffect(() => {
-    fetchAllData();
-  }, [farmId]);
-
-  const fetchAllData = async () => {
+  const fetchAllData = useCallback(async () => {
     setLoading(true);
     const newErrors = {};
 
@@ -60,9 +55,12 @@ function ProfileView({ farmer, apiUrl }) {
     if (results[4].status === 'fulfilled') setCropsData(results[4].value.data.crops || []);
     else newErrors.crops = true;
 
-    setErrors(newErrors);
     setLoading(false);
-  };
+  }, [apiUrl, farmId]);
+
+  useEffect(() => {
+    fetchAllData();
+  }, [fetchAllData]);
 
   const handleCropFormChange = (e) => {
     const { name, value } = e.target;
