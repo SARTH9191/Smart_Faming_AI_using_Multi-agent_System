@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
@@ -202,6 +202,12 @@ function App() {
   const [farmId, setFarmId]         = useState('FARM001');
   const [showAdminApp, setShowAdminApp] = useState(() => !!localStorage.getItem('admin_token'));
 
+  const initializeSensors = useCallback(async (targetFarmId = farmId) => {
+    try {
+      await axios.post(`${API_BASE_URL}/simulate_sensors`, { farm_id: targetFarmId, duration_minutes: 10 });
+    } catch (e) { /* silent */ }
+  }, [farmId]);
+
   useEffect(() => {
     const storedFarmer = localStorage.getItem('farmer');
     if (storedFarmer) {
@@ -213,13 +219,7 @@ function App() {
 
   useEffect(() => {
     if (farmer) initializeSensors(getFarmIdFromFarmer(farmer));
-  }, [farmer]);
-
-  const initializeSensors = async (targetFarmId = farmId) => {
-    try {
-      await axios.post(`${API_BASE_URL}/simulate_sensors`, { farm_id: targetFarmId, duration_minutes: 10 });
-    } catch (e) { /* silent */ }
-  };
+  }, [farmer, initializeSensors]);
 
   const handleLogin = (data) => { setFarmer(data); setFarmId(getFarmIdFromFarmer(data)); };
   const handleLogout = () => { localStorage.removeItem('farmer'); setFarmer(null); setActiveTab('dashboard'); };

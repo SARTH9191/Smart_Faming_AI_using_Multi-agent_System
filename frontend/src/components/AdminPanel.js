@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import axios from 'axios';
 import './AdminPanel.css';
 
@@ -34,7 +34,6 @@ function getProgressState(level, status) {
   const failed = level === 'verification_failed';
 
   return PROGRESS_STEPS.map((step, i) => {
-    const stepMaxLevel = step.levels[step.levels.length - 1];
     const stepIdx = order.indexOf(step.levels[0]);
     if (rejected && step.key === 'approved') return 'failed';
     if (failed && step.key === 'geo') return 'failed';
@@ -302,7 +301,6 @@ function FarmProfileModal({ farmId, token, onClose, onDone }) {
 
 // ── Queue Action Card ─────────────────────────────────────────────
 function QueueCard({ action, expanded, onToggle, onApprove, onReject, onSchedule, onMarkCall, reviewNotes, onNoteChange }) {
-  const cfg = LEVEL_CONFIG[action.verification_level] || { label: action.token_request_status, color: '#64748b', icon: '❓' };
   const isPending = ['pending', 'awaiting_admin_review', 'awaiting_video_verification'].includes(action.token_request_status);
   const isCallScheduled = action.video_verification_status === 'scheduled';
   const isApproved = action.token_request_status === 'approved';
@@ -545,31 +543,31 @@ function AdminPanel({ onLogout }) {
   const headers = { 'X-Admin-Token': token };
   const showToast = msg => { setToast(msg); setTimeout(() => setToast(''), 3500); };
 
-  const fetchQueue   = async () => {
+  const fetchQueue = useCallback(async () => {
     setLoading(true);
     try {
       const res = await axios.get(`${API_BASE}/admin/queue?status=${queueFilter}&limit=200`, { headers });
       setQueue(res.data.actions || []);
     } catch (e) { showToast('❌ Failed to load queue'); }
     finally { setLoading(false); }
-  };
+  }, [queueFilter, headers]);
 
-  const fetchFarmers = async () => {
+  const fetchFarmers = useCallback(async () => {
     try {
       const res = await axios.get(`${API_BASE}/admin/farmers`, { headers });
       setFarmers(res.data.farmers || []);
     } catch (e) { showToast('❌ Failed to load farmers'); }
-  };
+  }, [headers]);
 
-  const fetchStats = async () => {
+  const fetchStats = useCallback(async () => {
     try {
       const res = await axios.get(`${API_BASE}/admin/stats`, { headers });
       setStats(res.data);
     } catch (e) { }
-  };
+  }, [headers]);
 
-  useEffect(() => { fetchQueue(); fetchStats(); }, [queueFilter]);
-  useEffect(() => { if (activeTab === 'farmers') fetchFarmers(); }, [activeTab]);
+  useEffect(() => { fetchQueue(); fetchStats(); }, [fetchQueue, fetchStats]);
+  useEffect(() => { if (activeTab === 'farmers') fetchFarmers(); }, [activeTab, fetchFarmers]);
 
   const approve = async id => {
     const notes = reviewNotes[id] || '';

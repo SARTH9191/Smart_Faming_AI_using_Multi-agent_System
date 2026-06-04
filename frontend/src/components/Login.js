@@ -187,62 +187,6 @@ function Login({ onLogin, onAdminClick }) {
       switchToLogin: 'पहले से खाता है? लॉगिन करें',
       or: 'या',
       features: {
-        title: 'AI-Powered Smart Farming',
-        items: [
-          '🤖 10 Autonomous AI Agents',
-          '🌡️ Real-time Weather & Soil Monitoring',
-          '💰 Market Price Predictions',
-          '🌱 Disease Detection & Prevention',
-          '💧 Smart Irrigation Control',
-          '🎤 Voice Assistant (Marathi/Hindi/English)'
-        ]
-      }
-    },
-    mr: {
-      title: 'स्मार्ट फार्मिंग AI',
-      subtitle: mode === 'login' ? 'तुमच्या फार्म डॅशबोर्डमध्ये लॉगिन करा' : 'नवीन खाते तयार करा',
-      farmerId: 'शेतकरी ID',
-      password: 'पासवर्ड',
-      confirmPassword: 'पासवर्डची पुष्टी करा',
-      name: 'पूर्ण नाव',
-      email: 'ईमेल (पर्यायी)',
-      phone: 'फोन नंबर (पर्यायी)',
-      language: 'पसंतीची भाषा',
-      loginButton: 'डॅशबोर्डमध्ये लॉगिन करा',
-      registerButton: 'खाते तयार करा',
-      demoButton: 'डेमो वापरा',
-      switchToRegister: 'खाते नाही? नोंदणी करा',
-      switchToLogin: 'आधीपासून खाते आहे? लॉगिन करा',
-      or: 'किंवा',
-      features: {
-        title: 'AI-Powered Smart Farming',
-        items: [
-          '🤖 10 Autonomous AI Agents',
-          '🌡️ Real-time Weather & Soil Monitoring',
-          '💰 Market Price Predictions',
-          '🌱 Disease Detection & Prevention',
-          '💧 Smart Irrigation Control',
-          '🎤 Voice Assistant (Marathi/Hindi/English)'
-        ]
-      }
-    },
-    hi: {
-      title: 'स्मार्ट फार्मिंग AI',
-      subtitle: mode === 'login' ? 'अपने फार्म डैशबोर्ड में लॉगिन करें' : 'नया खाता बनाएं',
-      farmerId: 'किसान ID',
-      password: 'पासवर्ड',
-      confirmPassword: 'पासवर्ड की पुष्टि करें',
-      name: 'पूरा नाम',
-      email: 'ईमेल (वैकल्पिक)',
-      phone: 'फ़ोन नंबर (वैकल्पिक)',
-      language: 'पसंदीदा भाषा',
-      loginButton: 'डैशबोर्ड में लॉगिन करें',
-      registerButton: 'खाता बनाएं',
-      demoButton: 'डेमो आज़माएं',
-      switchToRegister: 'खाता नहीं है? रजिस्टर करें',
-      switchToLogin: 'पहले से खाता है? लॉगिन करें',
-      or: 'या',
-      features: {
         title: 'AI-संचालित स्मार्ट खेती',
         items: [
           '🤖 10 स्वायत्र AI एजेंट',

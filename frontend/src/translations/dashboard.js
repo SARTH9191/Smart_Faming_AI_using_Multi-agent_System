@@ -182,15 +182,12 @@ export const dashboardTranslations = {
     expectedHarvest: "Expected Harvest",
     status: "Status",
     actions: "Actions",
-    edit: "Edit",
-    delete: "Delete",
     noCrops: "No crops added yet",
     
     // Actions Log
     actionsLogTitle: "Farm Actions Log",
     date: "Date",
     action: "Action",
-    details: "Details",
     noActions: "No actions logged yet",
     
     // Weather View
@@ -417,15 +414,12 @@ export const dashboardTranslations = {
     expectedHarvest: "अपेक्षित फसल",
     status: "स्थिति",
     actions: "कार्य",
-    edit: "संपादित करें",
-    delete: "हटाएं",
     noCrops: "अभी तक कोई फसल नहीं जोड़ी गई",
     
     // Actions Log
     actionsLogTitle: "फार्म कार्य लॉग",
     date: "तारीख",
     action: "कार्य",
-    details: "विवरण",
     noActions: "अभी तक कोई कार्य लॉग नहीं किया गया",
     
     // Weather View
@@ -652,15 +646,12 @@ export const dashboardTranslations = {
     expectedHarvest: "अपेक्षित कापणी",
     status: "स्थिती",
     actions: "कृती",
-    edit: "संपादित करा",
-    delete: "हटवा",
     noCrops: "अद्याप कोणतीही पिके जोडलेली नाहीत",
     
     // Actions Log
     actionsLogTitle: "शेत कृती लॉग",
     date: "तारीख",
     action: "कृती",
-    details: "तपशील",
     noActions: "अद्याप कोणतीही कृती नोंदवलेली नाही",
     
     // Weather View

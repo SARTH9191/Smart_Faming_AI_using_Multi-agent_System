@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
 import exifr from 'exifr';
 import './ActionsLog.css';
@@ -108,12 +108,24 @@ function ActionsLog({ farmId, farmer }) {
   const [imagePreview, setImagePreview] = useState(null);
   const [exifResult, setExifResult] = useState(null);  // from server after upload-parse
   const [geoResult, setGeoResult] = useState(null);    // from server after submit
-  const [analyzing, setAnalyzing] = useState(false);
   const [liveGps, setLiveGps] = useState(null); // { lat, lon } from browser
 
   const fileInputRef = useRef(null);
 
-  useEffect(() => { fetchActions(); }, [resolvedFarmId]);
+  const fetchActions = useCallback(async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get(`${apiUrl}/actions_log?farm_id=${resolvedFarmId}&limit=100`);
+      setActions(res.data.actions || []);
+      setTotalTokens(res.data.total_green_tokens || 0);
+    } catch (err) {
+      console.error('Error fetching actions:', err);
+    } finally {
+      setLoading(false);
+    }
+  }, [apiUrl, resolvedFarmId]);
+
+  useEffect(() => { fetchActions(); }, [fetchActions]);
 
   const handleUseLiveLocation = () => {
     if (!navigator.geolocation) {
@@ -145,19 +157,6 @@ function ActionsLog({ farmId, farmer }) {
       },
       { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
     );
-  };
-
-  const fetchActions = async () => {
-    try {
-      setLoading(true);
-      const res = await axios.get(`${apiUrl}/actions_log?farm_id=${resolvedFarmId}&limit=100`);
-      setActions(res.data.actions || []);
-      setTotalTokens(res.data.total_green_tokens || 0);
-    } catch (err) {
-      console.error('Error fetching actions:', err);
-    } finally {
-      setLoading(false);
-    }
   };
 
   const handleImageSelect = async (e) => {
@@ -276,11 +275,6 @@ function ActionsLog({ farmId, farmer }) {
   const filteredActions = filterType === 'all' ? actions : actions.filter(a => a.action_type === filterType);
 
   // Should submit be disabled? Only if image was selected but geo failed strictly
-  const isSubmitDisabled = submitting || (
-    imageFile && geoResult && !geoResult.geo_passed &&
-    geoResult.verification_level === 'verification_failed'
-  );
-
   return (
     <div className="actions-log">
       <div className="actions-header">
